@@ -1,33 +1,32 @@
-import React, { useEffect, useState } from "react";
-import AddHabit from "./components/AddHabit";
-import HabitList from "./components/HabitList";
-import HabitHistory from "./components/HabitHistory";
+import React, { useState } from 'react';
+import HabitForm from './components/HabitForm';
+import HabitList from './components/HabitList';
+import './index.css';
 
-function App() {
+const App = () => {
   const [habits, setHabits] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:3001/habits")
-      .then(res => res.json())
-      .then(data => setHabits(data));
-  }, []);
-
-  const addHabit = (newHabit) => {
-    setHabits([...habits, newHabit]);
+  const addHabit = (text) => {
+    setHabits([...habits, { id: Date.now(), text, completed: false }]);
   };
 
-  const updateHabit = (updatedHabit) => {
-    setHabits(habits.map(h => (h.id === updatedHabit.id ? updatedHabit : h)));
+  const toggleComplete = (id) => {
+    setHabits(habits.map(habit =>
+      habit.id === id ? { ...habit, completed: !habit.completed } : habit
+    ));
+  };
+
+  const deleteHabit = (id) => {
+    setHabits(habits.filter(habit => habit.id !== id));
   };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Smart Habit Tracker</h1>
-      <AddHabit onAdd={addHabit} />
-      <HabitList habits={habits} onUpdate={updateHabit} />
-      <HabitHistory habits={habits} />
+    <div className="container">
+      <h1>smart habit tracker</h1>
+      <HabitForm onAdd={addHabit} />
+      <HabitList habits={habits} onComplete={toggleComplete} onDelete={deleteHabit} />
     </div>
   );
-}
+};
 
 export default App;

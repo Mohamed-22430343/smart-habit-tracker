@@ -1,38 +1,145 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Reset and basic setup */
+body {
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 40px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.container {
+  background-color: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.add-button {
+  background-color: #2563eb;
   color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.add-button:hover {
+  background-color: #1d4ed8;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.add-button:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.habit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.habit-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.habit-item span {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.complete-button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.complete-button:hover {
+  background-color: #1d4ed8;
+}
+
+.complete-button:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.delete-button {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #dc2626;
+}
+
+.delete-button:focus {
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .form {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+
+  .add-button {
+    width: 100%;
+  }
+
+  .habit-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .buttons {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .container {
+    margin: 10px;
   }
 }

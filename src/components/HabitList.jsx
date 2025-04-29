@@ -1,38 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function HabitList({ habits, onUpdate }) {
-  const today = new Date().toISOString().split("T")[0];
+function HabitList() {
+  const [habits, setHabits] = useState([]);
 
-  const toggleHabit = (habit) => {
-    const updatedHistory = habit.history.includes(today)
-      ? habit.history.filter(date => date !== today)
-      : [...habit.history, today];
-
-    const updatedHabit = { ...habit, history: updatedHistory };
-
-    fetch(`http://localhost:3001/habits/${habit.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedHabit),
-    })
-      .then(res => res.json())
-      .then(data => onUpdate(data));
-  };
+  // Fetch data from the backend
+  useEffect(() => {
+    axios.get('http://localhost:3001/habits') // Replace with your backend API endpoint
+      .then(response => {
+        setHabits(response.data); // Set state with fetched habits
+      })
+      .catch(error => {
+        console.error('There was an error fetching the habits!', error);
+      });
+  }, []); // Empty dependency array means this runs once when the component mounts
 
   return (
-    <div className="mb-4">
-      <h2 className="text-xl font-semibold mb-2">Today's Habits</h2>
-      {habits.map(habit => (
-        <div key={habit.id} className="flex items-center mb-2">
-          <input
-            type="checkbox"
-            checked={habit.history.includes(today)}
-            onChange={() => toggleHabit(habit)}
-            className="mr-2"
-          />
-          <span>{habit.name}</span>
-        </div>
-      ))}
+    <div>
+      <h2>Habit List</h2>
+      <ul>
+        {habits.map(habit => (
+          <li key={habit.id}>{habit.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
